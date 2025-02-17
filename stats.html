@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Statistiques - ECOF</title>
+  <style>
+    :root {
+      --primary-color: #00a86b;
+      --secondary-color: #005bb5;
+      --accent-color: #ffa726;
+      --text-color: #333;
+      --bg-overlay: rgba(255, 255, 255, 0.9);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: url('tokyo-japan-cityscape-filtered-image-processed-vintage-effect.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: var(--text-color);
+      overflow-x: hidden;
+    }
+
+    header {
+      background: var(--primary-color);
+      color: white;
+      text-align: center;
+      padding: 1.5rem;
+    }
+
+    .menu-toggle {
+      position: fixed;
+      top: 15px;
+      right: 20px;
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 5px;
+      z-index: 1001;
+    }
+
+    .menu-toggle:hover {
+      background: #ef6c00;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 200px; /* Réduit la largeur du menu */
+      height: auto; /* Ajuste la hauteur automatiquement */
+      max-height: 80vh; /* Limite la hauteur du menu */
+      background: var(--secondary-color);
+      transform: translateX(100%);
+      transition: transform 0.3s ease-in-out;
+      padding: 20px;
+      z-index: 1000;
+      overflow-y: auto; /* Ajoute un défilement si nécessaire */
+    }
+
+    nav.open {
+      transform: translateX(0);
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      padding: 8px 0; /* Réduit le padding */
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--primary-color);
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: var(--bg-overlay);
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: var(--secondary-color);
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .result-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      min-height: 120px;
+    }
+
+    .result-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .result-icon {
+      margin-right: 20px; /* Réduit l'espacement */
+      width: 50px; /* Réduit la taille de l'icône */
+      height: 50px; /* Réduit la taille de l'icône */
+    }
+
+    footer {
+      background: var(--secondary-color);
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+
+    /* Media Queries pour la Responsivité */
+    @media (max-width: 1200px) {
+      header h1 {
+          font-size: 2.5rem; /* Réduire la taille du titre */
+      }
+
+      header p {
+          font-size: 1rem; /* Réduire la taille du texte */
+      }
+
+      .menu-toggle {
+          padding: 8px 12px; /* Ajuster le padding du bouton */
+      }
+
+      .result-item {
+          flex-direction: column; /* Aligner les éléments verticalement */
+          align-items: center; /* Centrer les éléments */
+      }
+
+      .result-icon {
+          margin-bottom: 10px; /* Espace sous l'icône */
+      }
+
+      .result-grid {
+          grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Ajuster pour des écrans plus petits */
+      }
+    }
+
+    @media (max-width: 600px) {
+      nav {
+          width: 100%; /* Rendre le menu plein largeur sur les petits écrans */
+      }
+
+      .menu-toggle {
+          width: 100%; /* Rendre le bouton de menu plein largeur */
+      }
+
+      .result-item {
+          padding: 1rem; /* Réduire le padding pour les petits écrans */
+      }
+
+      .result-icon {
+          width: 40px; /* Réduire la taille de l'icône */
+          height: 40px; /* Réduire la taille de l'icône */
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>SECUREINVEST</h1>
+    <p>Finançons l'avenir, sécurisons l'investissement</p>
+  </header>
+
+  <button class="menu-toggle" aria-label="Menu">Menu</button>
+  <nav id="menu">
+    <a href="page1.html">Accueil</a>
+    <a href="about.html">Présentation</a>
+    <a href="projects.html">Projets</a>
+    <a href="stats.html">Statistiques</a>
+    <a href="submit.html">Critères d'éligibilité</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <main class="container">
+    <section>
+      <div class="result-grid">
+        <div class="result-item">
+          <img src="https://img.icons8.com/?size=100&id=v84e884kBrIQ&format=png&color=000000" alt="Projets financés" class="result-icon">
+          <p><strong>Projets financés : 3+</strong></p>
+        </div>
+        <div class="result-item">
+          <img src="https://img.icons8.com/?size=100&id=oN4hLuUxWi7n&format=png&color=000000" alt="Montant collecté" class="result-icon">
+          <p><strong>Montant collecté : 3 000 000 FCFA</strong></p>
+        </div>
+        <div class="result-item">
+          <img src="https://img.icons8.com/?size=100&id=NjmWaGKBSaHw&format=png&color=000000" alt="Investisseurs actifs" class="result-icon">
+          <p><strong>Investisseurs actifs : 50+</strong></p>
+        </div>
+        <div class="result-item">
+          <img src="https://img.icons8.com/?size=100&id=46558&format=png&color=000000" alt="Projets en vue" class="result-icon">
+          <p><strong>Projets en vue : 4+</strong></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 INVESTSECURE. Tous droits réservés.</p>
+  </footer>
+
+  <script>
+    document.querySelector('.menu-toggle').addEventListener('click', () => {
+      document.getElementById('menu').classList.toggle('open');
+    });
+  </script>
+</body>
+</html>

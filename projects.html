@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projets - ECOF</title>
+  <style>
+    /* Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      background: url('tokyo-japan-cityscape-filtered-image-processed-vintage-effect.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #33333371;
+    }
+
+    header {
+      background: rgba(0, 168, 107, 0.8);
+      color: white;
+      text-align: center;
+      padding: 2rem 0;
+    }
+
+    header h1 {
+      font-size: 2.8rem;
+      font-weight: bold;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+    }
+
+    .menu-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px; /* Positionné en haut à droite */
+      background-color: #ffa726;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+      z-index: 1001;
+    }
+
+    .menu-toggle:hover {
+      background-color: #ef6c00;
+    }
+
+    nav {
+      position: absolute; /* Positionné en haut à droite */
+      width: 250px;
+      height: auto;
+      top: 60px; /* Positionné en dessous de l'en-tête */
+      right: 0; /* Aligné à droite */
+      transform: translateY(-100%); /* Commence hors de l'écran */
+      transition: transform 0.3s ease;
+      z-index: 1000;
+      padding: 20px;
+      background-color: rgba(0, 91, 181, 0.8); /* Couleur de fond */
+      display: none; /* Masquer le menu par défaut */
+    }
+
+    nav.open {
+      display: block; /* Afficher le menu lorsqu'il est ouvert */
+      transform: translateY(0); /* Ouvre vers le bas */
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0.5rem 0;
+      display: block; /* Fait des liens des blocs */
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #00a86b;
+    }
+
+    main {
+      padding: 2rem;
+      margin: 1rem auto;
+      max-width: 1200px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+    }
+
+    section h2 {
+      text-align: center;
+      font-size: 2rem;
+      color: #005bb5;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center; /* Centre les cartes */
+      gap: 20px; /* Espace entre les cartes */
+    }
+
+    .card {
+      flex: 1 1 calc(33.333% - 20px); /* 3 cartes par ligne */
+      max-width: 300px;
+      border-radius: 15px; /* Arrondir les coins */
+      overflow: hidden;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      position: relative; /* Pour positionner le bouton correctement */
+    }
+
+    .image-container {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+      border-radius: 15px; /* Arrondit les coins des images */
+    }
+
+    .image-container img.active {
+      opacity: 1;
+    }
+
+    .text-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .image-container:hover .text-overlay {
+      opacity: 1;
+    }
+
+    .progress-bar-container {
+      background: #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+      height: 20px;
+      width: 80%;
+      margin: 1rem auto;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #00a86b, #0073e6);
+      color: white;
+      text-align: center;
+      line-height: 20px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .progress-percentage {
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      font-weight: bold;
+      color: #0073e6;
+      text-align: center;
+    }
+
+    .cta {
+      display: inline-block; /* Pour le style de bouton */
+      padding: 10px 15px;
+      background: #0073e6;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      text-align: center;
+      margin: 1rem auto; /* Centrer le bouton */
+      margin-left: 35px; /* Déplacer le texte légèrement vers la droite */
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s;
+      width: 80%; /* Largeur pour éviter le débordement */
+    }
+
+    .cta:hover {
+      background: #005bb5; /* Couleur au survol */
+    }
+
+    footer {
+      background: rgba(0, 91, 181, 0.8);
+      color: white;
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      font-size: 1rem;
+    }
+
+    /* Media Queries pour la Responsivité */
+    @media (max-width: 1200px) {
+      header h1 {
+          font-size: 2.5rem; /* Réduire la taille du titre */
+      }
+
+      header p {
+          font-size: 1rem; /* Réduire la taille du texte */
+      }
+
+      .menu-toggle {
+          padding: 8px 12px; /* Ajuster le padding du bouton */
+      }
+
+      .card {
+          flex: 1 1 calc(50% - 20px); /* 2 cartes par ligne sur les écrans moyens */
+      }
+    }
+
+    @media (max-width: 900px) {
+      .card {
+          flex: 1 1 calc(100% - 20px); /* 1 carte par ligne sur les petits écrans */
+      }
+
+      .image-container {
+          height: 150px; /* Réduire la hauteur des images */
+      }
+
+      .progress-percentage {
+          font-size: 0.8rem; /* Réduire la taille du texte */
+      }
+    }
+
+    @media (max-width: 600px) {
+      header {
+          padding: 1.5rem 0; /* Ajuster le padding de l'en-tête */
+      }
+
+      nav {
+          width: 100%; /* Rendre le menu plein largeur sur les petits écrans */
+          right: 0; /* Positionner le menu à droite */
+      }
+
+      .menu-toggle {
+          width: 100%; /* Rendre le bouton de menu plein largeur */
+      }
+
+      .cta {
+          width: 90%; /* Ajuster la largeur du bouton */
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>SECUREINVEST</h1>
+    <p>Financons l'avenir, sécurisons l'investissement</p>
+  </header>
+
+  <button class="menu-toggle">Menu</button>
+  <nav id="menu">
+    <a href="page1.html">Accueil</a>
+    <a href="about.html">Présentation</a>
+    <a href="projects.html">Projets</a>
+    <a href="stats.html">Statistiques et Réalisations</a>
+    <a href="submit.html">Critères d'éligibilité</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <main>
+    <section>
+      <h2>Projets en cours</h2>
+      <div class="cards">
+          <!-- Projet 1 -->
+          <div class="card">
+              <div class="image-container">
+                  <img src="Projet21.jpg" class="active">
+                  <div class="text-overlay">
+                      <h3>Culture d'oignons rouges</h3>
+                      <p>Un projet visant à cultiver les oignons rouges ; une partie de la récolte sera reversée aux orphelinats.</p>
+                  </div>
+              </div>
+              <div class="progress-bar-container">
+                  <div class="progress-bar" style="width: 40%">40%</div>
+              </div>
+              <div class="progress-percentage">Prix : 40 000 000 CFA<br>
+                Montant déjà réuni : 16 000 000 CFA<br>
+                Durée : 6 mois<br></div>
+              <a href="oignon.html" class="cta">Voir le projet</a>
+          </div>
+  
+          <!-- Projet 2 -->
+          <div class="card">
+              <div class="image-container">
+                  <img src="Projet31.jpg" class="active">
+                  <div class="text-overlay">
+                      <h3>Culture de tomates</h3>
+                      <p>Un projet visant à cultiver les tomates. Une partie du bénéfice sera reversée aux associations caritatives.</p>
+                  </div>
+              </div>
+              <div class="progress-bar-container">
+                  <div class="progress-bar" style="width: 70%">70%</div>
+              </div>
+              <div class="progress-percentage">Prix : 70 000 000 CFA<br>
+                Montant déjà réuni : 50 000 000 CFA<br>
+                Durée : 4 mois<br></div>
+              <a href="tomate.html" class="cta">Voir le projet</a>
+          </div>
+  
+          <!-- Projet 3 -->
+          <div class="card">
+              <div class="image-container">
+                  <img src="1.jpg" class="active">
+                  <div class="text-overlay">
+                      <h3>Élevage durable</h3>
+                      <p>Un projet pour promouvoir des pratiques d'élevage respectueuses de l'environnement.</p>
+                  </div>
+              </div>
+              <div class="progress-bar-container">
+                  <div class="progress-bar" style="width: 55%">55%</div>
+              </div>
+              <div class="progress-percentage">Prix : 55 000 000 CFA<br>
+                Montant déjà réuni : 30 000 000 CFA<br>
+                Durée : 12 mois<br></div>
+              <a href="elevage.html" class="cta">Voir le projet</a>
+          </div>
+  
+          <!-- Projet 4 -->
+          <div class="card">
+              <div class="image-container">
+                  <img src="4.jpg" class="active">
+                  <div class="text-overlay">
+                      <h3>Plantation d'arbres fruitiers</h3>
+                      <p>Un projet visant à développer des plantations d'arbres fruitiers pour améliorer la biodiversité.</p>
+                  </div>
+              </div>
+              <div class="progress-bar-container">
+                  <div class="progress-bar" style="width: 80%">80%</div>
+              </div>
+              <div class="progress-percentage">Prix : 30 000 000 CFA<br>
+                Montant déjà réuni : 18 000 000 CFA<br>
+                Durée : 5 mois<br></div>
+              <a href="fruit.html" class="cta">Voir le projet</a>
+          </div>
+  
+          <!-- Projet 5 -->
+          <div class="card">
+              <div class="image-container">
+                  <img src="télécharger (9).jpg" class="active">
+                  <div class="text-overlay">
+                      <h3>Culture de maïs bio</h3>
+                      <p>Un projet de culture de maïs respectant l’environnement et favorisant l’agriculture locale.</p>
+                  </div>
+              </div>
+              <div class="progress-bar-container">
+                  <div class="progress-bar" style="width: 60%">60%</div>
+              </div>
+              <div class="progress-percentage">Prix : 50 000 000 CFA<br>
+                Montant déjà réuni : 20 000 000 CFA<br>
+                Durée : 8 mois<br></div>
+              <a href="mais.html" class="cta">Voir le projet</a>
+          </div>
+  
+          <!-- Projet 6 -->
+          <div class="card">
+              <div class="image-container">
+                  <img src="2.jpg" class="active">
+                  <div class="text-overlay">
+                      <h3>Élevage de volailles</h3>
+                      <p>Développement d’une ferme avicole durable pour répondre aux besoins en alimentation locale.</p>
+                  </div>
+              </div>
+              <div class="progress-bar-container">
+                  <div class="progress-bar" style="width: 50%">50%</div>
+              </div>
+              <div class="progress-percentage">Prix : 50 000 000 CFA<br>
+                 Montant déjà réuni : 1 000 000 CFA<br>
+                Durée : 3 ans<br></div>
+              <a href="volaille.html" class="cta" >Voir le projet</a>
+          </div>
+      </div> <!-- Fin du div .cards -->
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 INVESTSECURE. Tous droits réservés.</p>
+  </footer>
+
+  <script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const menu = document.getElementById('menu');
+
+    menuToggle.addEventListener('click', () => {
+      menu.classList.toggle('open');
+      if (menu.classList.contains('open')) {
+        menu.style.display = 'block'; // Afficher le menu
+        document.body.style.overflow = 'hidden'; // Masquer le défilement
+      } else {
+        menu.style.display = 'none'; // Masquer le menu
+        document.body.style.overflow = 'auto'; // Rendre le défilement disponible
+      }
+    });
+  </script>
+</body>
+</html>

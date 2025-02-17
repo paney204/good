@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ECOF - Plateforme de financement participatif pour l'agriculture et les bons de commandes certifiés.">
+    <title>ECOF - Plateforme Agricole et Financement</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('tokyo-japan-cityscape-filtered-image-processed-vintage-effect.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #ffffff;
+        }
+        header {
+            background: rgba(0, 168, 107, 0.9);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+        }
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        header p {
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        /* MENU DÉROULANT */
+        .menu-container {
+            position: relative;
+            text-align: right;
+            padding: 15px;
+        }
+        .menu-toggle {
+            background-color: #ffa726;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            z-index: 1001;
+        }
+        .menu-toggle:hover {
+            background-color: #ef6c00;
+        }
+
+        .menu {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            width: 250px;
+            background-color: rgba(0, 91, 181, 0.95);
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            visibility: hidden;
+        }
+        .menu.open {
+            opacity: 1;
+            transform: translateY(0);
+            visibility: visible;
+        }
+        .menu ul {
+            list-style: none;
+            padding: 0;
+        }
+        .menu li {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .menu li:last-child {
+            border-bottom: none;
+        }
+        .menu a {
+            display: block;
+            padding: 12px;
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            transition: 0.3s ease;
+        }
+        .menu a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            background: rgba(0, 0, 0, 0.6);
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px;
+        }
+        .hero h2 {
+            font-size: 2.5rem;
+        }
+
+        /* MAIN CONTENT */
+        main {
+            padding: 2rem;
+            margin: 1rem auto;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            color: #333;
+        }
+
+        /* SECTEURS D'ACTIVITÉ */
+        h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin: 20px 0;
+            color: rgba(0, 168, 107, 0.9);
+            font-weight: bold;
+        }
+
+        .sectors {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px; /* Espace entre les cartes */
+            margin: 2rem 0;
+        }
+
+        .sector-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 78px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(0, 168, 107, 0.2);
+            height: 300px; /* Hauteur des cartes */
+        }
+
+        .sector-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .sector-card img {
+            width: 100%;
+            height: 100%; /* L'image remplit entièrement la carte */
+            object-fit: cover; /* Assure que l'image remplit l'espace */
+            border-radius: 80px; /* Arrondi des coins */
+        }
+
+        .sector-description {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border-radius: 0 0 10px 10px; /* Arrondi uniquement le bas */
+            white-space: nowrap; /* Empêche le retour à la ligne */
+            overflow: hidden; /* Cache le texte qui déborde */
+        }
+
+        .sector-card:hover .sector-description {
+            opacity: 1;
+            animation: slide-in 0.5s forwards; /* Animation d'apparition */
+        }
+
+        @keyframes slide-in {
+            0% {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* SECTION ÉQUIPE */
+        .team-section {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .team-section h2 {
+            font-size: 2rem;
+            margin: 20px 0;
+            color: rgba(0, 168, 107, 0.9);
+            font-weight: bold;
+        }
+
+        .team-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Ajustement pour remplir l'espace */
+            gap: 300px; /* Espace entre les cartes (ajouté) */
+            justify-items: center; /* Centrer les cartes */
+            padding: 0 20px; /* Ajout de marge intérieure */
+        }
+
+        .team-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 60px; /* Coins arrondis */
+            text-align: center;
+            padding: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+            height: 180px; /* Hauteur des cartes */
+            width: 180px; /* Largeur des cartes */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* Centrer le contenu */
+        }
+
+        .team-card img {
+            width: 100px; /* Taille de l'image */
+            height: 100px; /* Taille de l'image */
+            object-fit: cover;
+            border-radius: 50%; /* Arrondi complet pour rendre l'image ronde */
+            margin-bottom: 10px; /* Espace sous l'image */
+        }
+
+        .team-card p {
+            margin-top: 10px;
+            font-weight: bold;
+            color: rgba(0, 168, 107, 0.9);
+        }
+
+        /* FOOTER */
+        footer {
+            background: rgba(0, 91, 181, 0.8);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            font-size: 1rem;
+        }
+
+        /* Media Queries pour la Responsivité */
+        @media (max-width: 1200px) {
+            .hero {
+                height: 300px; /* Réduire la hauteur de la section héro pour les écrans plus petits */
+            }
+
+            header h1 {
+                font-size: 2rem; /* Réduire la taille du titre */
+            }
+
+            header p {
+                font-size: 1rem; /* Réduire la taille du texte */
+            }
+        }
+
+        @media (max-width: 900px) {
+            .sector-card {
+                height: 250px; /* Réduire la hauteur des cartes pour les écrans moyens */
+            }
+
+            .team-card {
+                height: 130px; /* Ajuster la hauteur des cartes d'équipe */
+                width: 130px; /* Ajuster la largeur des cartes d'équipe */
+            }
+        }
+
+        @media (max-width: 600px) {
+            .menu {
+                width: 100%; /* Rendre le menu plein largeur sur les petits écrans */
+                right: 0; /* Positionner le menu à droite */
+            }
+
+            .menu-toggle {
+                width: 100%; /* Rendre le bouton de menu plein largeur */
+            }
+
+            .sector-card {
+                height: 200px; /* Réduire la hauteur des cartes pour les petits écrans */
+            }
+
+            .hero h2 {
+                font-size: 1.5rem; /* Réduire la taille du texte pour la section héro */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>INVESTSECURE</h1>
+        <p>Financons l'avenir, sécurisons l'investissement</p>
+    </header>
+
+    <!-- MENU DÉROULANT -->
+    <div class="menu-container">
+        <button class="menu-toggle">Menu</button>
+        <nav class="menu" id="menu">
+            <ul>
+                <li><a href="page1.html">Accueil</a></li>
+                <li><a href="about.html">Présentation</a></li>
+                <li><a href="projects.html">Projets en vedette</a></li>
+                <li><a href="stats.html">Statistiques et Réalisations</a></li>
+                <li><a href="submit.html">Critères d'éligibilité</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- HERO SECTION -->
+    <div class="hero">
+        <h2>Investissez dans des contrats commerciaux de courtes durées et des bons de commandes certifiés</h2>
+    </div>
+
+    <!-- SECTEURS D'ACTIVITÉ -->
+    <section>
+        <h2>Secteurs d'Activité</h2>
+        <div class="sectors">
+            <div class="sector-card">
+                <img src="5879729990101222843.jpg" alt="Énergies Renouvelables">
+                <div class="sector-description">
+                    <p id="desc1">Énergies Renouvelables</p>
+                </div>
+            </div>
+            <div class="sector-card">
+                <img src="American Express.jpg" alt="Bons de commandes">
+                <div class="sector-description">
+                    <p id="desc2">Coopératives des Entreprises.</p>
+                </div>
+            </div>
+            <div class="sector-card">
+                <img src="Commercial Contract Lawyer.jpg" alt="Contrats commerciaux">
+                <div class="sector-description">
+                    <p id="desc3">Artisanats</p>
+                </div>
+            </div>
+            <div class="sector-card">
+                <img src="télécharger (10).jpg" alt="Agriculture">
+                <div class="sector-description">
+                    <p id="desc4">Élevage</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION ÉQUIPE -->
+    <div class="team-section">
+        <h2>Membres de l'Équipe</h2>
+        <div class="team-cards">
+            <div class="team-card">
+                <img src="Will Smith Biography, Wiki, Pictures, Dob, Social Accounts & More.jpg" alt="Directeur">
+                <p>Directeur</p>
+            </div>
+            <div class="team-card">
+                <img src="télécharger (7).jpg" alt="Secrétaire">
+                <p>Secrétaire</p>
+            </div>
+            <div class="team-card">
+                <img src="télécharger (6).jpg" alt="Conseiller">
+                <p>Conseiller</p>
+            </div>
+            <!-- Ajoutez d'autres membres si nécessaire -->
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 INVESTSECURE. Tous droits réservés.</p>
+    </footer>
+
+    <!-- SCRIPT MENU DÉROULANT -->
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const menu = document.getElementById('menu');
+
+        menuToggle.addEventListener('click', () => {
+            menu.classList.toggle('open');
+        });
+
+        // Fermer le menu si on clique en dehors
+        document.addEventListener('click', (event) => {
+            if (!menu.contains(event.target) && !menuToggle.contains(event.target)) {
+                menu.classList.remove('open');
+            }
+        });
+
+        // Animation mot par mot
+        const descriptions = [
+            "lettres de crédit",
+            "Bons de commandes",
+            "contrats commerciaux",
+            "Agriculture"
+        ];
+
+        document.querySelectorAll('.sector-card').forEach((card, index) => {
+            card.addEventListener('mouseenter', () => {
+                const description = card.querySelector('.sector-description p');
+                description.innerHTML = ''; // Réinitialiser le contenu
+                const words = descriptions[index].split(' ');
+                words.forEach((word, i) => {
+                    setTimeout(() => {
+                        description.innerHTML += (i > 0 ? ' ' : '') + word; // Ajouter le mot
+                    }, i * 300); // Délai de 300ms entre les mots
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
