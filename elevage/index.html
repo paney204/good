@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Élevage de Chèvres - Détails du Projet</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            color: #333;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #00a86b;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #0073e6;
+        }
+
+        h1 {
+            color: #0073e6;
+            text-align: center;
+        }
+
+        .content {
+            text-align: justify;
+            margin-top: 20px;
+        }
+
+        .btn {
+            display: block;
+            width: 200px;
+            text-align: center;
+            background: #00a86b;
+            color: white;
+            padding: 10px;
+            margin: 20px auto;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #0073e6;
+        }
+
+        /* Media Queries pour la Responsivité */
+        @media (max-width: 1200px) {
+            header h1 {
+                font-size: 2.5rem; /* Réduire la taille du titre */
+            }
+
+            header p {
+                font-size: 1rem; /* Réduire la taille du texte */
+            }
+
+            .header {
+                flex-direction: column; /* Aligner les éléments en colonne */
+                align-items: center; /* Centrer les éléments */
+            }
+
+            .header img {
+                width: 60px; /* Réduire la taille de l'image */
+                height: 60px; /* Réduire la taille de l'image */
+            }
+
+            .btn {
+                width: 160px; /* Ajuster la largeur du bouton */
+            }
+        }
+
+        @media (max-width: 600px) {
+            main {
+                padding: 1rem; /* Réduire le padding pour les petits écrans */
+            }
+
+            h1 {
+                font-size: 2rem; /* Réduire la taille du titre */
+            }
+
+            section h2 {
+                font-size: 1.5rem; /* Réduire la taille du sous-titre */
+            }
+
+            .btn {
+                width: 90%; /* Rendre le bouton presque plein écran */
+                margin: 20px auto; /* Centrer le bouton */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div>
+            <h1>Élevage de Chèvres</h1>
+            <p><strong>Initiateur :</strong> Marie Dupont</p>
+        </div>
+        <img src="initiateur.jpg" alt="Photo de l'initiateur">
+    </div>
+
+    <div class="content">
+        <h2>À propos du projet</h2>
+        <p>
+            Ce projet vise à établir un élevage de chèvres pour produire du lait et de la viande de qualité. 
+            L'initiative est portée par Marie Dupont, une agricultrice passionnée, qui souhaite promouvoir 
+            des pratiques d'élevage durables et respectueuses de l'environnement. Une partie des bénéfices 
+            sera investie dans des projets communautaires locaux.
+        </p>
+        
+        <h2>Objectifs</h2>
+        <ul>
+            <li>Développer une production de lait et de viande durable</li>
+            <li>Augmenter l'autosuffisance alimentaire locale</li>
+            <li>Créer des emplois dans l'élevage et la transformation des produits</li>
+            <li>Contribuer au développement de la communauté locale</li>
+        </ul>
+        
+        <h2>Informations Financières</h2>
+        <p>
+            <strong>Budget requis :</strong> 30 000 000 CFA<br>
+            <strong>Durée du projet :</strong> 12 mois<br>
+            <strong>Impact estimé :</strong> 100 chèvres élevées avec une production de 20 000 litres de lait par an
+        </p>
+    </div>
+
+    <button class="btn" onclick="downloadPDF()">Télécharger en PDF</button>
+
+    <script>
+        function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            let doc = new jsPDF();
+            
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(18);
+            doc.text("Élevage de Chèvres", 20, 20);
+            
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "normal");
+            doc.text("Initiateur: Marie Dupont", 20, 30);
+            
+            doc.text("À propos du projet:", 20, 50);
+            doc.text("Ce projet vise à établir un élevage de chèvres pour produire du lait et de la viande de qualité.", 20, 60, { maxWidth: 170 });
+
+            doc.text("Objectifs du projet:", 20, 80);
+            doc.text("- Développer une production durable", 20, 90);
+            doc.text("- Augmenter l'autosuffisance alimentaire", 20, 100);
+            doc.text("- Créer des emplois dans l'élevage", 20, 110);
+            doc.text("- Contribuer au développement local", 20, 120);
+
+            doc.text("Informations Financières:", 20, 140);
+            doc.text("Budget requis: 30 000 000 CFA", 20, 150);
+            doc.text("Durée du projet: 12 mois", 20, 160);
+            doc.text("Impact estimé: 100 chèvres élevées, 20 000 litres de lait par an", 20, 170);
+
+            doc.save("Elevage_Chèvres.pdf");
+        }
+    </script>
+
+</body>
+</html>

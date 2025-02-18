@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Culture d'Oignons Rouges - Détails du Projet</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f4f4f4, #d3e0ea);
+            color: #333;
+            padding: 20px;
+            max-width: 900px;
+            margin: auto;
+            background-color: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        body:hover {
+            transform: scale(1.01);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 4px solid #00a86b;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #0073e6;
+            transition: transform 0.3s;
+        }
+
+        .header img:hover {
+            transform: rotate(360deg);
+        }
+
+        h1 {
+            color: #0073e6;
+            text-align: center;
+            font-size: 28px;
+        }
+
+        .content {
+            text-align: justify;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: block;
+            width: 250px;
+            text-align: center;
+            background: #00a86b;
+            color: white;
+            padding: 12px;
+            margin: 20px auto;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 168, 107, 0.3);
+        }
+
+        .btn:hover {
+            background: #0073e6;
+            transform: translateY(-3px);
+        }
+
+        .details {
+            margin-top: 20px;
+            background: rgba(0, 168, 107, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: inset 0 0 10px rgba(0, 168, 107, 0.1);
+        }
+
+        .details p {
+            font-size: 18px;
+            font-weight: bold;
+            color: #0073e6;
+        }
+
+        /* Media Queries pour la Responsivité */
+        @media (max-width: 1200px) {
+            body {
+                padding: 15px; /* Réduire le padding pour les écrans plus petits */
+            }
+
+            .header {
+                flex-direction: column; /* Aligner les éléments en colonne */
+                align-items: center; /* Centrer les éléments */
+            }
+
+            .header img {
+                width: 70px; /* Réduire la taille de l'image */
+                height: 70px; /* Réduire la taille de l'image */
+            }
+
+            h1 {
+                font-size: 2.5rem; /* Réduire la taille du titre */
+            }
+
+            .btn {
+                width: 200px; /* Ajuster la largeur du bouton */
+            }
+
+            .content {
+                font-size: 14px; /* Réduire la taille du texte */
+            }
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px; /* Réduire le padding pour les petits écrans */
+            }
+
+            h1 {
+                font-size: 2rem; /* Réduire la taille du titre */
+            }
+
+            .details p {
+                font-size: 16px; /* Ajuster la taille du texte dans les détails */
+            }
+
+            .btn {
+                width: 90%; /* Rendre le bouton presque plein écran */
+                margin: 20px auto; /* Centrer le bouton */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div>
+            <h1>Culture d'Oignons Rouges</h1>
+            <p><strong>Initiateur :</strong> Jean Doe</p>
+        </div>
+        <img src="african.jpg" alt="Photo de l'initiateur">
+    </div>
+
+    <div class="content">
+        🌱 <strong>Projet ECOF AFRICA :</strong> "Oignon Durable" – Une Production Écologique et Rentable
+        <br><br>
+        📌 <strong>Présentation du projet :</strong> 
+        <br>Ce projet ambitieux vise à établir une ferme agroécologique dédiée à la culture d’oignons rouges, intégrant des pratiques durables qui préservent notre environnement tout en répondant aux besoins économiques des producteurs. 
+        <br><br>
+        🌍 En adoptant des méthodes de culture respectueuses de l'environnement, nous nous engageons à :
+        <ul>
+            <li>Utiliser des fertilisants naturels et promouvoir la biodiversité.</li>
+            <li>Optimiser l'irrigation pour économiser l'eau et réduire le gaspillage.</li>
+            <li>Former et autonomiser les producteurs locaux grâce à des pratiques durables.</li>
+            <li>Ouvrir des marchés locaux et internationaux pour des produits écologiques.</li>
+            <li>Réduire notre empreinte carbone et contribuer à la lutte contre le changement climatique.</li>
+        </ul>
+    </div>
+
+    <div class="details">
+        <p>💰 Prix du projet : 40 000 000 CFA</p>
+        <p>✅ Montant déjà réuni : 16 000 000 CFA</p>
+        <p>⏳ Durée : 6 mois</p>
+    </div>
+
+    <button class="btn" onclick="downloadPDF()">📄 Télécharger en PDF</button>
+
+    <script>
+        function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            let doc = new jsPDF();
+            
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(18);
+            doc.text("Culture d'Oignons Rouges", 20, 20);
+            
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "normal");
+            doc.text("Initiateur: Jean Doe", 20, 30);
+            
+            doc.text("\n\n📌 Présentation:", 20, 50);
+            doc.text("Ce projet vise à établir une ferme agroécologique dédiée à la culture d’oignons rouges, intégrant des pratiques durables.", 20, 60, { maxWidth: 170 });
+
+            doc.text("\n🌍 Objectifs:", 20, 80);
+            doc.text("- Utiliser des fertilisants naturels", 20, 90);
+            doc.text("- Optimiser l'irrigation", 20, 100);
+            doc.text("- Former les producteurs locaux", 20, 110);
+            doc.text("- Ouvrir des marchés écologiques", 20, 120);
+            doc.text("- Réduire l'empreinte carbone", 20, 130);
+
+            doc.text("\n💰 Détails Financiers:", 20, 150);
+            doc.text("Prix du projet: 40 000 000 CFA", 20, 160);
+            doc.text("Montant réuni: 16 000 000 CFA", 20, 170);
+            doc.text("Durée: 6 mois", 20, 180);
+
+            doc.save("Culture_Oignons_Rouges.pdf");
+        }
+    </script>
+</body>
+</html>
