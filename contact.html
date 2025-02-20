@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Critères de projet</title>
+  <title>Contact - ECOF</title>
   <style>
     /* Global Styles */
     * {
@@ -15,28 +15,40 @@
     body {
       font-family: 'Arial', sans-serif;
       line-height: 1.6;
-      background: url('tokyo-japan-cityscape-filtered-image-processed-vintage-effect.jpg') no-repeat center center fixed;
+      background: url('images/tokyo-japan-cityscape-filtered-image-processed-vintage-effect.jpg') no-repeat center center fixed;
       background-size: cover;
-      color: #333;
+      color: #33333371;
+      overflow: hidden; /* Masque le défilement */
     }
 
     header {
       background: rgba(0, 168, 107, 0.8);
       color: white;
       text-align: center;
-      padding: 1.5rem;
+      padding: 2rem 0;
+    }
+
+    header h1 {
+      font-size: 2.8rem;
+      font-weight: bold;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
     }
 
     .menu-toggle {
       position: absolute;
       top: 20px;
-      right: 20px;
+      right: 20px; /* Positionné en haut à droite */
       background-color: #ffa726;
       color: white;
       border: none;
       padding: 10px 15px;
       cursor: pointer;
       border-radius: 5px;
+      transition: background-color 0.3s;
       z-index: 1001;
     }
 
@@ -45,33 +57,30 @@
     }
 
     nav {
-      position: absolute;
+      position: absolute; /* Positionné en haut à droite */
       width: 250px;
-      top: 60px;
-      right: 0;
-      background-color: rgba(0, 91, 181, 0.9);
-      padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(-10px);
-      transition: all 0.3s ease-in-out;
+      height: auto;
+      top: 60px; /* Positionné en dessous de l'en-tête */
+      right: 0; /* Aligné à droite */
+      transform: translateY(-100%); /* Commence hors de l'écran */
+      transition: transform 0.3s ease;
+      z-index: 1000;
+      padding: 20px;
+      background-color: rgba(0, 91, 181, 0.8); /* Couleur de fond */
+      display: none; /* Masquer le menu par défaut */
     }
 
     nav.open {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
+      display: block; /* Afficher le menu lorsqu'il est ouvert */
+      transform: translateY(0); /* Ouvre vers le bas */
     }
 
     nav a {
       color: white;
       text-decoration: none;
-      display: block;
-      padding: 8px 0;
+      margin: 0.5rem 0;
+      display: block; /* Fait des liens des blocs */
       font-weight: bold;
-      text-align: center;
       transition: color 0.3s;
     }
 
@@ -82,34 +91,17 @@
     main {
       padding: 2rem;
       margin: 1rem auto;
-      max-width: 800px;
+      max-width: 1200px;
       background: rgba(255, 255, 255, 0.9);
       border-radius: 10px;
-      text-align: center;
-      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
     }
 
-    h2 {
+    section h2 {
+      text-align: center;
       font-size: 2rem;
       color: #005bb5;
       margin-bottom: 1.5rem;
       text-transform: uppercase;
-    }
-
-    .criteria-link {
-      display: inline-block;
-      padding: 10px 15px;
-      background-color: #005bb5;
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      border-radius: 5px;
-      transition: 0.3s;
-      margin-bottom: 20px;
-    }
-
-    .criteria-link:hover {
-      background-color: #00a86b;
     }
 
     footer {
@@ -143,12 +135,8 @@
           padding: 1.5rem; /* Réduire le padding pour les écrans plus petits */
       }
 
-      h2 {
+      section h2 {
           font-size: 1.8rem; /* Réduire la taille du titre */
-      }
-
-      .criteria-link {
-          padding: 8px 12px; /* Ajuster le padding du lien */
       }
     }
 
@@ -164,12 +152,15 @@
 
       main {
           margin: 1rem; /* Réduire la marge pour les écrans plus petits */
+          padding: 1rem; /* Réduire le padding pour les petits écrans */
       }
 
-      .criteria-link {
-          width: 90%; /* Ajuster la largeur du lien */
-          display: block; /* Assurer que le lien prend toute la largeur */
-          margin: 0 auto; /* Centrer le lien */
+      section h2 {
+          font-size: 1.5rem; /* Réduire la taille du titre pour les petits écrans */
+      }
+
+      footer {
+          padding: 1rem; /* Réduire le padding du footer */
       }
     }
   </style>
@@ -192,16 +183,14 @@
 
   <main>
     <section>
-      <h2>Cliquez en bas</h2>
-
-      <!-- ✅ Lien vers le fichier sur Google Drive -->
-      <a href="https://drive.google.com/file/d/1qfodl32qk5jg6sJAF8yZkLDQXCtvSirU/view?usp=drive_link" target="_blank" class="criteria-link">📄 Critères d'éligibilité</a>
-
+      <h2>Contactez-nous</h2>
+      <p>Email : <a href="mailto:contact@ecof.org">SECUREINVEST.org</a></p>
+      <p>Téléphone : +228 93518032</p>
     </section>
   </main>
 
   <footer>
-    <p>&copy; 2025 INVESTSECURE. Tous droits réservés.</p>
+    <p>&copy; 2025 SECUREINVEST. Tous droits réservés.</p>
   </footer>
 
   <script>
@@ -210,6 +199,13 @@
 
     menuToggle.addEventListener('click', () => {
       menu.classList.toggle('open');
+      if (menu.classList.contains('open')) {
+        menu.style.display = 'block'; // Afficher le menu
+        document.body.style.overflow = 'hidden'; // Masquer le défilement
+      } else {
+        menu.style.display = 'none'; // Masquer le menu
+        document.body.style.overflow = 'auto'; // Rendre le défilement disponible
+      }
     });
   </script>
 </body>
